@@ -1,0 +1,457 @@
+<title>Inventarios · INVERSIONES TOYS</title>
+<style>
+  :root {
+    color-scheme: light;
+    --page:        #f9f9f7;
+    --surface:     #fcfcfb;
+    --surface-2:   #f2f1ec;
+    --ink:         #0b0b0b;
+    --ink-2:       #52514e;
+    --ink-muted:   #898781;
+    --grid:        #e1e0d9;
+    --baseline:    #c3c2b7;
+    --border:      rgba(11,11,11,0.10);
+    --accent:      #2a78d6;
+    --accent-wash: #eaf1fb;
+    --series-2:    #eb6834;
+    --series-2-wash: #fdf0e9;
+    --good:        #0ca30c;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:where(:not([data-theme="light"])) {
+      color-scheme: dark;
+      --page:        #0d0d0d;
+      --surface:     #1a1a19;
+      --surface-2:   #232320;
+      --ink:         #ffffff;
+      --ink-2:       #c3c2b7;
+      --ink-muted:   #898781;
+      --grid:        #2c2c2a;
+      --baseline:    #383835;
+      --border:      rgba(255,255,255,0.10);
+      --accent:      #3987e5;
+      --accent-wash: rgba(57,135,229,0.14);
+      --series-2:    #d95926;
+      --series-2-wash: rgba(217,89,38,0.16);
+      --good:        #0ca30c;
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --page:        #0d0d0d;
+    --surface:     #1a1a19;
+    --surface-2:   #232320;
+    --ink:         #ffffff;
+    --ink-2:       #c3c2b7;
+    --ink-muted:   #898781;
+    --grid:        #2c2c2a;
+    --baseline:    #383835;
+    --border:      rgba(255,255,255,0.10);
+    --accent:      #3987e5;
+    --accent-wash: rgba(57,135,229,0.14);
+    --series-2:    #d95926;
+    --series-2-wash: rgba(217,89,38,0.16);
+    --good:        #0ca30c;
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--page);
+    color: var(--ink);
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.4;
+  }
+
+  .wrap {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 28px 24px 64px;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    gap: 16px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border);
+  }
+  .brand-eyebrow {
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--ink-muted);
+    margin: 0 0 6px;
+  }
+  h1 {
+    margin: 0;
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    text-wrap: balance;
+  }
+  .cut-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    padding: 8px 14px;
+    font-size: 13px;
+    color: var(--ink-2);
+    white-space: nowrap;
+  }
+  .cut-badge .dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--good);
+    flex: none;
+  }
+  .cut-badge b { color: var(--ink); font-variant-numeric: tabular-nums; }
+
+  .kpi-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+  }
+  .kpi {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .kpi.accent { background: var(--accent-wash); border-color: transparent; }
+  .kpi-label { font-size: 12.5px; color: var(--ink-2); font-weight: 600; }
+  .kpi-value {
+    font-size: 30px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    font-variant-numeric: tabular-nums;
+    color: var(--ink);
+  }
+  .kpi.accent .kpi-value { color: var(--accent); }
+  .kpi-sub { font-size: 12.5px; color: var(--ink-muted); font-variant-numeric: tabular-nums; }
+
+  section.panel {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 22px 24px;
+  }
+  .panel-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 12px;
+    margin-bottom: 18px;
+    flex-wrap: wrap;
+  }
+  .panel-title { font-size: 15px; font-weight: 700; margin: 0; }
+  .panel-note { font-size: 12.5px; color: var(--ink-muted); }
+
+  .two-col {
+    display: grid;
+    grid-template-columns: 1.35fr 1fr;
+    gap: 16px;
+    align-items: start;
+  }
+  @media (max-width: 860px) {
+    .two-col { grid-template-columns: 1fr; }
+    .kpi-row { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (max-width: 520px) {
+    .wrap { padding: 18px 14px 48px; gap: 20px; }
+    header { align-items: flex-start; }
+    h1 { font-size: 21px; }
+    .kpi-row { grid-template-columns: 1fr 1fr; gap: 10px; }
+    .kpi { padding: 14px 14px; }
+    .kpi-value { font-size: 24px; }
+    section.panel { padding: 16px 14px; }
+    .bar-row { grid-template-columns: 1fr; row-gap: 5px; padding: 10px 0; }
+    .bar-row .bar-label { white-space: normal; }
+    .bar-row .bar-value { display: flex; justify-content: space-between; text-align: left; }
+    thead th:nth-child(3), tbody td:nth-child(3) { display: none; }
+  }
+
+  .bar-row {
+    display: grid;
+    grid-template-columns: 168px 1fr 118px;
+    align-items: center;
+    gap: 10px;
+    padding: 7px 0;
+  }
+  .bar-row + .bar-row { border-top: 1px solid var(--grid); }
+  .bar-label {
+    font-size: 12.5px;
+    color: var(--ink-2);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .bar-label b { color: var(--ink); font-weight: 600; }
+  .bar-track {
+    position: relative;
+    height: 20px;
+    background: var(--surface-2);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .bar-fill {
+    position: absolute;
+    inset: 0 auto 0 0;
+    background: var(--accent);
+    border-radius: 4px;
+    min-width: 4px;
+  }
+  .bar-value {
+    font-size: 12.5px;
+    font-weight: 600;
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+    color: var(--ink);
+  }
+  .bar-pct { font-size: 11px; color: var(--ink-muted); font-weight: 400; margin-left: 4px; }
+
+  .prod-list { display: flex; flex-direction: column; }
+  .prod-row {
+    display: grid;
+    grid-template-columns: 22px 1fr auto;
+    gap: 10px;
+    align-items: center;
+    padding: 8px 0;
+  }
+  .prod-row + .prod-row { border-top: 1px solid var(--grid); }
+  .prod-rank { font-size: 12px; color: var(--ink-muted); font-variant-numeric: tabular-nums; }
+  .prod-name {
+    font-size: 12.5px;
+    color: var(--ink);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .prod-code { font-size: 11px; color: var(--ink-muted); }
+  .prod-value { font-size: 12.5px; font-weight: 600; font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+  .table-scroll { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  thead th {
+    text-align: left;
+    font-size: 11.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--ink-muted);
+    font-weight: 600;
+    padding: 0 10px 10px;
+    border-bottom: 1px solid var(--baseline);
+    white-space: nowrap;
+  }
+  thead th.num, tbody td.num { text-align: right; }
+  tbody td {
+    padding: 10px 10px;
+    border-bottom: 1px solid var(--grid);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+  tbody tr:last-child td { border-bottom: none; }
+  tbody td.name { font-weight: 600; }
+  tbody td.code { color: var(--ink-muted); font-variant-numeric: normal; }
+  .pct-cell { display: flex; align-items: center; gap: 8px; justify-content: flex-end; }
+  .pct-track { width: 46px; height: 5px; border-radius: 3px; background: var(--surface-2); overflow: hidden; flex: none; }
+  .pct-fill { height: 100%; background: var(--series-2); border-radius: 3px; }
+
+  .legend { display: flex; gap: 16px; font-size: 12px; color: var(--ink-2); }
+  .legend-item { display: flex; align-items: center; gap: 6px; }
+  .swatch { width: 10px; height: 10px; border-radius: 2px; flex: none; }
+
+  .method {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    font-size: 12.5px;
+    color: var(--ink-2);
+    background: var(--surface-2);
+    border-radius: 8px;
+    padding: 14px 16px;
+  }
+  .method b { color: var(--ink); }
+  footer { text-align: center; font-size: 12px; color: var(--ink-muted); padding-top: 8px; }
+</style>
+
+<div class="wrap">
+
+  <header>
+    <div>
+      <p class="brand-eyebrow">Inversiones Toys · vSummer Cloud</p>
+      <h1>Dashboard de Inventarios</h1>
+    </div>
+    <div class="cut-badge">
+      <span class="dot"></span>
+      Corte del <b id="cut-date"></b>
+    </div>
+  </header>
+
+  <div class="kpi-row">
+    <div class="kpi accent">
+      <span class="kpi-label">Valor de inventario (costo)</span>
+      <span class="kpi-value" id="kpi-costo-m"></span>
+      <span class="kpi-sub" id="kpi-costo-exacto"></span>
+    </div>
+    <div class="kpi">
+      <span class="kpi-label">Valor a precio de venta</span>
+      <span class="kpi-value" id="kpi-venta-m"></span>
+      <span class="kpi-sub" id="kpi-venta-exacto"></span>
+    </div>
+    <div class="kpi">
+      <span class="kpi-label">Unidades en inventario</span>
+      <span class="kpi-value" id="kpi-unidades"></span>
+      <span class="kpi-sub" id="kpi-unidades-sub"></span>
+    </div>
+    <div class="kpi">
+      <span class="kpi-label">Productos · Bodegas</span>
+      <span class="kpi-value" id="kpi-productos"></span>
+      <span class="kpi-sub" id="kpi-productos-sub"></span>
+    </div>
+  </div>
+
+  <div class="two-col">
+
+    <section class="panel">
+      <div class="panel-head">
+        <h2 class="panel-title">Valorización de inventario por bodega</h2>
+        <span class="panel-note">Costo unificado · orden descendente</span>
+      </div>
+      <div id="bar-chart"></div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head">
+        <h2 class="panel-title">Top 15 productos por valor</h2>
+        <span class="panel-note">suma en todas las bodegas</span>
+      </div>
+      <div id="prod-list" class="prod-list"></div>
+    </section>
+
+  </div>
+
+  <section class="panel">
+    <div class="panel-head">
+      <h2 class="panel-title">Detalle por bodega</h2>
+      <div class="legend">
+        <span class="legend-item"><span class="swatch" style="background:var(--series-2)"></span>% del valor total</span>
+      </div>
+    </div>
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr>
+            <th>Bodega</th>
+            <th>Código</th>
+            <th class="num">Productos</th>
+            <th class="num">Unidades</th>
+            <th class="num">Valor costo</th>
+            <th class="num">Valor venta</th>
+            <th class="num">% del total</th>
+          </tr>
+        </thead>
+        <tbody id="table-body"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <div class="method">
+    <span>ℹ️</span>
+    <span>
+      <b>Cómo se calcula el costo:</b> cada bodega reporta su propio costo promedio, que puede variar entre sedes.
+      Este dashboard reemplaza ese costo por el costo unificado de <b>Análisis de Existencias Totales</b> (el mismo
+      para toda la compañía) en cada producto, y recalcula <b>Valor Costo = Costo × Unidades</b> — así el valor de
+      cada bodega es comparable entre sí.
+    </span>
+  </div>
+
+  <footer>
+    Generado a partir de <span id="n-bodegas"></span> bodegas descargadas de vSummer Cloud el <span id="cut-date-2"></span>.
+  </footer>
+
+</div>
+
+<script>
+  const DATA = {"fecha": "2026-07-22", "bodegas": [{"codigo": "CM-03", "nombre": "BODEGA BOGOTA", "productos": 546, "unidades": 452717, "valor_costo": 1509304331.92, "valor_venta": 2167193720.0}, {"codigo": "LJ-02", "nombre": "BODEGA CALI", "productos": 385, "unidades": 295768, "valor_costo": 958574041.84, "valor_venta": 1286002650.0}, {"codigo": "CM-105", "nombre": "CTG TOP OPEN", "productos": 1425, "unidades": 221865, "valor_costo": 757323150.71, "valor_venta": 1114928333.92}, {"codigo": "LJ-100", "nombre": "BODEGA BUCARAMANGA", "productos": 741, "unidades": 274443, "valor_costo": 749372227.12, "valor_venta": 1154709500.0}, {"codigo": "001", "nombre": "BODEGA_CENTRO", "productos": 578, "unidades": 193760, "valor_costo": 634733757.43, "valor_venta": 940102700.0}, {"codigo": "CM-02", "nombre": "BOGOTA GRAN MANZANA", "productos": 1206, "unidades": 151325, "valor_costo": 512907636.67, "valor_venta": 800247128.0}, {"codigo": "LJ-05", "nombre": "ALMACEN TAIWAN", "productos": 802, "unidades": 78316, "valor_costo": 267617866.76, "valor_venta": 433982380.0}, {"codigo": "03", "nombre": "BODEGA AUXILIAR 32", "productos": 568, "unidades": 83935, "valor_costo": 243478951.87, "valor_venta": 433591570.0}, {"codigo": "LJ-101", "nombre": "ALMACEN BUCARAMANGA", "productos": 1304, "unidades": 49231, "valor_costo": 182484912.87, "valor_venta": 274591608.0}, {"codigo": "02", "nombre": "LOCAL 32", "productos": 1549, "unidades": 39283, "valor_costo": 133465365.93, "valor_venta": 210702650.0}, {"codigo": "CM-106", "nombre": "BODEGA PUNTAZO", "productos": 80, "unidades": 12241, "valor_costo": 107982371.34, "valor_venta": 185800000.0}], "top_productos": [{"codigo": "C1552-IO", "nombre": "MOSCO DE LUZ SIN CAMBIO", "valor": 151185705.0368727}, {"codigo": "C773", "nombre": "GLOBO HBD 32", "valor": 110966360.0592926}, {"codigo": "C1814", "nombre": "CARTA UNO FLIP", "valor": 82699283.03}, {"codigo": "C7301", "nombre": "MUÑECA CON CABALLO JIANI  C7301", "valor": 42401664}, {"codigo": "C1246", "nombre": "BALON DE FUTBOL # 5 CON RECUBRIMIENTO C1246", "valor": 35817400}, {"codigo": "C1758", "nombre": "MULA BLISTER SURTIDA", "valor": 26524911.6}, {"codigo": "C7336", "nombre": "SET PERRITOS SUPER GOGOC7336", "valor": 25122320}, {"codigo": "C4812", "nombre": "BURBUJERO DE ESPADA 44cm", "valor": 24637680}, {"codigo": "C1020", "nombre": "INFLABLE VARA ANIMALES", "valor": 22502581.2}, {"codigo": "C4303", "nombre": "BEBE CON PIJAMA MED BOLSA PVC C4303", "valor": 22411904}, {"codigo": "C4574", "nombre": "VARITA MOÑO CON ACESORIOS C4574", "valor": 21241070}, {"codigo": "C5032", "nombre": "INFLABLE TECHITO PIECITOS  FIGURAS STD C5032", "valor": 21200550.6}, {"codigo": "C1270", "nombre": "BURBUJERO SURTIDO LONGITUD: 52 CM", "valor": 19894505.34035735}, {"codigo": "C4510", "nombre": "TOCADOR CASTILLO MUSICA Y LUZ C4510", "valor": 17935506}, {"codigo": "C4305", "nombre": "MUÑECA BEBE GRANDE CON PIJAMA EN BOLSA C4305", "valor": 16546032}], "totales": {"valor_costo": 6057244614.47, "valor_venta": 9001852239.92, "unidades": 1852884, "productos_unicos": 3222, "bodegas": 11}};
+
+  const fmtCOP = n => "$" + Math.round(n).toLocaleString("es-CO");
+  const fmtInt = n => Math.round(n).toLocaleString("es-CO");
+  const fmtM = n => "$" + (n / 1_000_000).toLocaleString("es-CO", {maximumFractionDigits: 0}) + " M";
+
+  const fechaObj = new Date(DATA.fecha + "T00:00:00");
+  const fechaLarga = fechaObj.toLocaleDateString("es-CO", { day: "numeric", month: "long", year: "numeric" });
+  document.getElementById("cut-date").textContent = fechaLarga;
+  document.getElementById("cut-date-2").textContent = fechaLarga;
+  document.getElementById("n-bodegas").textContent = DATA.totales.bodegas;
+
+  document.getElementById("kpi-costo-m").textContent = fmtM(DATA.totales.valor_costo);
+  document.getElementById("kpi-costo-exacto").textContent = fmtCOP(DATA.totales.valor_costo) + " COP";
+  document.getElementById("kpi-venta-m").textContent = fmtM(DATA.totales.valor_venta);
+  document.getElementById("kpi-venta-exacto").textContent = fmtCOP(DATA.totales.valor_venta) + " COP";
+  document.getElementById("kpi-unidades").textContent = fmtInt(DATA.totales.unidades);
+  document.getElementById("kpi-unidades-sub").textContent = `en las ${DATA.totales.bodegas} bodegas`;
+  document.getElementById("kpi-productos").textContent = fmtInt(DATA.totales.productos_unicos);
+  document.getElementById("kpi-productos-sub").textContent = `productos únicos en ${DATA.totales.bodegas} bodegas`;
+
+  const maxValor = Math.max(...DATA.bodegas.map(b => b.valor_costo));
+  const barChart = document.getElementById("bar-chart");
+  DATA.bodegas.forEach(b => {
+    const pct = (b.valor_costo / DATA.totales.valor_costo * 100);
+    const widthPct = (b.valor_costo / maxValor * 100).toFixed(1);
+    const row = document.createElement("div");
+    row.className = "bar-row";
+    row.innerHTML = `
+      <span class="bar-label" title="${b.nombre} (${b.codigo})"><b>${b.nombre}</b></span>
+      <span class="bar-track"><span class="bar-fill" style="width:${widthPct}%"></span></span>
+      <span class="bar-value">${fmtCOP(b.valor_costo)}<span class="bar-pct">${pct.toFixed(1)}%</span></span>
+    `;
+    barChart.appendChild(row);
+  });
+
+  const prodList = document.getElementById("prod-list");
+  DATA.top_productos.forEach((p, i) => {
+    const row = document.createElement("div");
+    row.className = "prod-row";
+    row.innerHTML = `
+      <span class="prod-rank">${i + 1}</span>
+      <span class="prod-name" title="${p.nombre}">${p.nombre}<br><span class="prod-code">${p.codigo}</span></span>
+      <span class="prod-value">${fmtCOP(p.valor)}</span>
+    `;
+    prodList.appendChild(row);
+  });
+
+  const tbody = document.getElementById("table-body");
+  DATA.bodegas.forEach(b => {
+    const pct = (b.valor_costo / DATA.totales.valor_costo * 100);
+    const tr = document.createElement("tr");
+    tr.innerHTML = `
+      <td class="name">${b.nombre}</td>
+      <td class="code">${b.codigo}</td>
+      <td class="num">${fmtInt(b.productos)}</td>
+      <td class="num">${fmtInt(b.unidades)}</td>
+      <td class="num">${fmtCOP(b.valor_costo)}</td>
+      <td class="num">${fmtCOP(b.valor_venta)}</td>
+      <td class="num">
+        <span class="pct-cell">
+          ${pct.toFixed(1)}%
+          <span class="pct-track"><span class="pct-fill" style="width:${pct.toFixed(1)}%"></span></span>
+        </span>
+      </td>
+    `;
+    tbody.appendChild(tr);
+  });
+</script>
