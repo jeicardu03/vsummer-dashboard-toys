@@ -118,6 +118,29 @@
   }
   .cut-badge b { color: var(--ink); font-variant-numeric: tabular-nums; }
 
+  .header-actions { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .btn-descarga {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--accent-wash);
+    color: var(--accent);
+    border-radius: 100px;
+    padding: 8px 14px;
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .btn-descarga:hover { filter: brightness(0.96); }
+
+  .descarga-link {
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 600;
+  }
+  .descarga-link:hover { text-decoration: underline; }
+
   .kpi-row {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -374,9 +397,12 @@
       <p class="brand-eyebrow">Inversiones Toys · vSummer Cloud</p>
       <h1>Dashboard de Inventarios</h1>
     </div>
-    <div class="cut-badge">
-      <span class="dot"></span>
-      Corte del <b id="cut-date"></b>
+    <div class="header-actions">
+      <div class="cut-badge">
+        <span class="dot"></span>
+        Corte del <b id="cut-date"></b>
+      </div>
+      <a class="btn-descarga" href="consolidado.xlsx" download>⬇ Descargar consolidado (.xlsx)</a>
     </div>
   </header>
 
@@ -460,6 +486,7 @@
             <th class="num">Valor costo</th>
             <th class="num">Valor venta</th>
             <th class="num">% del total</th>
+            <th class="num">Descargar</th>
           </tr>
         </thead>
         <tbody id="table-body"></tbody>
@@ -549,6 +576,7 @@
           <span class="pct-track"><span class="pct-fill" style="width:${pct.toFixed(1)}%"></span></span>
         </span>
       </td>
+      <td class="num"><a class="descarga-link" href="bodegas/${encodeURIComponent(b.codigo)}.xlsx" download>⬇ .xlsx</a></td>
     `;
     tbody.appendChild(tr);
   });
